@@ -1,6 +1,6 @@
 <template>
   <div class="loading-page" v-if="loading">
-    <v-icon class="plus_loader">mdi-plus</v-icon>
+    <v-icon class="plus_loader">mdi-plus-outline</v-icon>
     <p class="feedback">Cargando</p>
   </div>
 </template>

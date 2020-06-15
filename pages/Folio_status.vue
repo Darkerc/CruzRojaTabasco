@@ -280,11 +280,13 @@ export default {
     },
     methods: {
         async initialize() {
+            this.showToastMessage("Espere un momento...", "mdi-timer-sand");
             try {
                 const {
                     data
-                } = await this.$axios.post('Folio_status/')
-                this.folios = data    
+                } = await this.$axios.post('/admin/Api/Folio_status/')
+                this.folios = data  
+                this.showToastMessage("Hecho", "mdi-check-bold");
             } catch (error) {
                 this.showToastMessage("A ocurrido un error inesperado", "mdi-close")
                 console.error(error)
@@ -317,7 +319,7 @@ export default {
                 formData.append('fs_id', this.deleteDialog.fs_id)
                 const {
                     data
-                } = await this.$axios.post('Folio_status/Eliminar.php', formData)
+                } = await this.$axios.post('/admin/Api/Folio_status/Eliminar.php', formData)
                 this.deleteDialog.show = false
                 this.showToastMessage("Operacion completada", "mdi-check-bold")
                 this.initialize()
@@ -332,7 +334,7 @@ export default {
                 try {
                     const form = document.getElementById('folioForm')
                     let formData = new FormData(form)
-                    const { data } = await this.$axios.post('Folio_status/Actualizar.php',formData)
+                    const { data } = await this.$axios.post('/admin/Api/Folio_status/Actualizar.php',formData)
                     console.log(data)
                     this.close()
                     this.showToastMessage("Folio actualizado","mdi-check-bold")

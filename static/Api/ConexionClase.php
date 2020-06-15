@@ -373,7 +373,7 @@
 				
 			}
 			
-			echo $sentenciaSQL;
+			$sentenciaSQL;
 			
 			try{
 				

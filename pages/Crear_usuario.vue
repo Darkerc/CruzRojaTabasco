@@ -13,7 +13,7 @@
                             <v-col cols="12" md="6">
                                 <validation-provider class="input_form" v-slot="{ errors }" rules="required|min:3|max:25" name="Nombre de usuario">
                                     <v-text-field 
-                                        name="usuario_nombre" 
+                                        name="usu_usuario" 
                                         label="Nombre del usuario" 
                                         append-icon="mdi-account" 
                                         :error-messages="errors[0]"
@@ -25,9 +25,9 @@
                                 </validation-provider>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <validation-provider class="input_form" v-slot="{ errors }" rules="required|min:3|max:25" vid="usuario_contraseña" name="Contraseña del usuario">
+                                <validation-provider class="input_form" v-slot="{ errors }" rules="required|min:3|max:25" vid="usu_password" name="Contraseña del usuario">
                                     <v-text-field 
-                                        name="usuario_contraseña" 
+                                        name="usu_password" 
                                         id="usuario_contraseña"
                                         v-model="formData.usuario_contraseña"
                                         label="Contraseña del usuario" 
@@ -42,9 +42,8 @@
                                 </validation-provider>
                             </v-col>
                             <v-col cols="12" md="6">
-                                <validation-provider class="input_form" v-slot="{ errors }" rules="required|confirmed:usuario_contraseña" name="Confirmar contraseña">
+                                <validation-provider class="input_form" v-slot="{ errors }" rules="required|confirmed:usu_password" name="Confirmar contraseña">
                                     <v-text-field 
-                                        name="contraseña_confirmacion" 
                                         label="Confirmar contraseña" 
                                         :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" 
                                         :type="show1 ? 'text' : 'password'"
@@ -60,7 +59,7 @@
                             <v-col cols="12" md="6">
                                 <validation-provider class="input_form" v-slot="{ errors }" rules="required|min:3|max:25" name="Contraseña del usuario">
                                     <v-select 
-                                        name="usuario_depto" 
+                                        name="usu_departamento" 
                                         :items="items" 
                                         label="Departamento" 
                                         append-icon="mdi-domain" 
@@ -70,6 +69,7 @@
                                         outlined 
                                         shaped>
                                     </v-select>
+                                    <input type="hidden" name="usu_departamento"  :value="formData.select"/>
                                 </validation-provider>
                             </v-col>
                         </v-row>
@@ -77,7 +77,7 @@
                     <v-card-actions>
                     <v-row>
                         <v-col cols="12" md="8">
-                        <v-btn color="success" type="submit" block>Crear usuario</v-btn>
+                        <v-btn color="success" :disabled="invalid" type="submit" block>Crear usuario</v-btn>
                         </v-col>
                         <v-col cols="12" md="4">
                         <v-btn color="warning" @click="clear" block>Limpiar campos</v-btn>
@@ -133,9 +133,10 @@ export default {
             try {
                 let form = document.getElementById('usersForm');
                 let formData = new FormData(form);
-                formData.append("usuario_depto", this.select);
-                const { data } = await this.$axios.post("/admin/crearNuevoUsuario", formData)   
+                const { data } = await this.$axios.post("/admin/Api/Administracion/usuarios/Crear.php", formData)  
+                console.log(data) 
                 this.showToastMessage("Usuario creado","mdi-check-bold")
+                this.clear()
             } catch (error) {
                 this.showToastMessage("A ocurrido un error inesperado","mdi-close")
                 console.error(error)

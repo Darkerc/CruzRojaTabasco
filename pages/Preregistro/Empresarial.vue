@@ -393,13 +393,15 @@ export default {
     },
     methods: {
         async initialize() {
+            this.showToastMessage("Espere un momento...", "mdi-timer-sand");
             try {
                 const formData = new FormData()
                 formData.append('tipo_registro', 2)
                 const {
                     data
-                } = await this.$axios.post('Preregistros/', formData)
+                } = await this.$axios.post('/admin/Api/Preregistros/', formData)
                 this.Preregistros = data    
+                this.showToastMessage("Hecho", "mdi-check-bold");
             } catch (error) {
                 this.showToastMessage("A ocurrido un error inesperado", "mdi-close")
                 console.error(error)
@@ -411,7 +413,7 @@ export default {
             formData.append('curso_tipo', 2)
             const {
                 data
-            } = await this.$axios.post('Cursos/getCursos.php', formData)
+            } = await this.$axios.post('/admin/Api/Cursos/getCursos.php', formData)
             this.dialogCursos.cursos = data
         },
         editItem(item) {
@@ -435,7 +437,7 @@ export default {
                 formData.append('idPreregistro', this.deleteDialog.idPreregistro)
                 const {
                     data
-                } = await this.$axios.post('Preregistros/Eliminar.php', formData)
+                } = await this.$axios.post('/admin/Api/Preregistros/Eliminar.php', formData)
                 this.deleteDialog.show = false
                 this.showToastMessage("Operacion completada", "mdi-check-bold")
                 this.initialize()
@@ -451,7 +453,7 @@ export default {
                     Object.assign(this.Preregistros[this.editedIndex], this.editedItem)
                     const form = document.getElementById('preregistroForm')
                     let formData = new FormData(form)
-                    const { data } = await this.$axios.post('Preregistros/Actualizar.php',formData)
+                    const { data } = await this.$axios.post('/admin/Api/Preregistros/Actualizar.php',formData)
                     console.log(data)
                     this.close()
                     this.showToastMessage("Preregistro actualizado","mdi-check-bold")
@@ -466,7 +468,7 @@ export default {
                     const form = document.getElementById('preregistroForm')
                     let formData = new FormData(form)
                     // formData.append('tipo_registro',this.currentPreregistro.tipo_registro == 'Público general' ? 1 : 2)
-                    const { data } = await this.$axios.post('Preregistros/Crear.php',formData)
+                    const { data } = await this.$axios.post('/admin/Api/Preregistros/Crear.php',formData)
                     console.log(data)
                     this.close()
                     this.showToastMessage("Preregistro creado","mdi-check-bold")

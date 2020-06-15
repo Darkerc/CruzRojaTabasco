@@ -424,10 +424,12 @@ export default {
     },
     methods: {
         async initialize() {
+            this.showToastMessage("Espere un momento...", "mdi-timer-sand");
             try {
-                const { data } = await this.$axios.post('Cursos/')
+                const { data } = await this.$axios.post('/admin/Api/Cursos/')
                 console.log(data)
                 this.cursos = data    
+                this.showToastMessage("Hecho", "mdi-check-bold");
             } catch (error) {
                 this.showToastMessage("A ocurrido un error inesperado", "mdi-close")
                 console.error(error)   
@@ -454,7 +456,7 @@ export default {
             try {
                 let formData = new FormData()
                 formData.append("curso_clave", this.deleteDialog.curso_clave)
-                let { data } = await this.$axios.post('Cursos/Eliminar.php', formData)
+                let { data } = await this.$axios.post('/admin/Api/Cursos/Eliminar.php', formData)
                 this.deleteDialog.show = false
                 this.showToastMessage("Operacion completada", "mdi-check-bold")
                 this.initialize()
@@ -469,7 +471,7 @@ export default {
             try {
                 const form = document.getElementById('cursoForm')
                 let formData = new FormData(form)
-                const { data } = await this.$axios.post('Cursos/Crear.php',formData)
+                const { data } = await this.$axios.post('/admin/Api/Cursos/Crear.php',formData)
                 console.log(data)
                 formData.forEach( value =>{
                     console.log(value)
@@ -490,7 +492,7 @@ export default {
                 const form = document.getElementById('cursoForm')
                 let formData = new FormData(form)
                 formData.append('curso_tipo',this.addCurso.curso_tipo == 'Público general' ? 1 : 2)
-                const { data } = await this.$axios.post('Cursos/Actualizar.php',formData)
+                const { data } = await this.$axios.post('/admin/Api/Cursos/Actualizar.php',formData)
                 this.close()
                 this.showToastMessage("Curso actualizado","mdi-check-bold")
                 this.initialize()

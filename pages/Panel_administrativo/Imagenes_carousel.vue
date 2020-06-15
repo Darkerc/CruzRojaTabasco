@@ -139,7 +139,7 @@ export default {
             this.showToastMessage("Guardando imagen", "mdi-timer-sand")
             try {
                 let formData = new FormData(document.getElementById('añadirImagenFile'));
-                await this.$axios.post("Administracion/admin_assets/Crear.php", formData, {
+                await this.$axios.post("/admin/Api/Administracion/admin_assets/Crear.php", formData, {
                     headers: {
                         "Content-Type": "multipart/form-data"
                     }
@@ -156,7 +156,7 @@ export default {
             this.showToastMessage("Guardando URL", "mdi-timer-sand")
             try {
                 let formData = new FormData(document.getElementById('añadirImagenURL'));
-                await this.$axios.post("Administracion/admin_assets/Crear.php", formData)
+                await this.$axios.post("/admin/Api/Administracion/admin_assets/Crear.php", formData)
                 this.showToastMessage("URL Guardada", "mdi-check-bold")
                 this.listarAssets();
                 this.dialog = false
@@ -171,7 +171,7 @@ export default {
             try {
                 const {
                     data
-                } = await this.$axios.get("Administracion/admin_assets/")
+                } = await this.$axios.get("/admin/Api/Administracion/admin_assets/")
                 this.assets = data
                 this.showToastMessage("Imagenes obtenidas", "mdi-check-bold")
             } catch (error) {
@@ -185,7 +185,7 @@ export default {
             try {
                 let formData = new FormData();
                 formData.append("id", id);
-                await this.$axios.post("Administracion/admin_assets/Eliminar.php", formData)
+                await this.$axios.post("/admin/Api/Administracion/admin_assets/Eliminar.php", formData)
                 const idx = this.assets.indexOf(item)
                 this.assets.splice(idx, 1)
                 this.showToastMessage("Imagen eliminada", "mdi-check-bold")
@@ -203,7 +203,7 @@ export default {
     components: {
         ValidationProvider,
         ValidationObserver
-    },
+    }, 
 }
 </script>
 

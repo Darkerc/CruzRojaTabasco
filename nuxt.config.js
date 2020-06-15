@@ -79,7 +79,8 @@ export default {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
-    baseURL:'http://localhost/admin/Api/'
+    baseURL: 'http://cruzrojatabasco.com/',///'http://localhost/',//'http://localhost/', //baseURL: 'http://cruzrojatabasco.com/' 
+    progress: true
   },
   /*
   ** vuetify module configuration
